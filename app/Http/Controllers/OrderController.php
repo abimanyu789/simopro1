@@ -9,6 +9,10 @@ use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\OrdersExport;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Setting;
 
 /**
  * Controller: OrderController
@@ -175,22 +179,39 @@ class OrderController extends Controller
     }
 
     /**
-     * Update status pembayaran pesanan secara langsung.
-     * Catatan: Kolom 'status_pembayaran' belum ada di migration saat ini.
-     * Method ini disiapkan untuk diaktifkan setelah migration diupdate.
-     * Untuk sementara, method ini hanya memvalidasi input dan memberi respons sukses dummy.
+     * Mengekspor daftar semua pesanan ke file Excel (.xlsx).
+     * 
+     * Tujuan: Digunakan oleh admin untuk pelaporan data pesanan atau audit eksternal.
+     * Output: Menghasilkan file download 'Data_Pesanan_Provillo.xlsx'.
      */
-    public function updatePaymentStatus(Request $request, Order $order)
+    public function exportExcel()
     {
-        $request->validate([
-            'status_pembayaran'   => ['required', Rule::in(['belum_dibayar', 'dibayar_sebagian', 'lunas'])],
-            'nominal_pembayaran'  => 'nullable|numeric|min:0',
+        return Excel::download(new OrdersExport, 'Data_Pesanan_Provillo.xlsx');
+    }
+
+    /**
+     * Men-generate dan mengunduh Invoice dalam format PDF untuk satu pesanan spesifik.
+     * 
+     * Tujuan: Memberikan bukti tagihan resmi kepada customer.
+     * Logika: Mengambil data Setting (untuk kop surat/logo perusahaan) dan data pesanan
+     * beserta rincian item, kemudian me-render view blade menjadi PDF.
+     * 
+     * @param Order $order Model pesanan yang akan di-export
+     */
+    public function exportInvoicePdf(Order $order)
+    {
+        // Muat relasi yang diperlukan untuk mencetak detail invoice
+        $order->load(['customer', 'items.product', 'shipments']);
+        $setting = Setting::first(); // Ambil informasi usaha untuk kop surat
+
+        $pdf = Pdf::loadView('reports.invoice', [
+            'order' => $order,
+            'setting' => $setting,
         ]);
 
-        // TODO: Setelah migration ditambahkan kolom 'status_pembayaran',
-        // uncomment baris berikut:
-        // $order->update(['status_pembayaran' => $request->status_pembayaran]);
+        // Opsional: atur ukuran kertas
+        $pdf->setPaper('A4', 'portrait');
 
-        return redirect()->back()->with('success', 'Status pembayaran diperbarui.');
+        return $pdf->download("Invoice_PO_{$order->nomor_pesanan}.pdf");
     }
 }

@@ -11,8 +11,24 @@ use Inertia\Inertia;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * Controller: ProductionLogController
+ *
+ * Mengelola antarmuka (HTTP interface) untuk proses pencatatan produksi harian sepatu.
+ * Menerima request dari form, memvalidasi parameter dasar, dan meneruskan eksekusi 
+ * bisnis kompleks (kalkulasi BOM, upah, stok) ke ProductionLogService.
+ */
 class ProductionLogController extends Controller
 {
+    /**
+     * Menampilkan halaman indeks Log Produksi.
+     * 
+     * Tujuan: Memuat tabel riwayat pengerjaan produksi.
+     * State Management: Mendukung filter berdasarkan 'search' (nama karyawan/nomor PO) 
+     * dan 'status' (dalam_proses / selesai).
+     * 
+     * @param Request $request
+     */
     public function index(Request $request)
     {
         $query = ProductionLog::with(['karyawan', 'order', 'orderItem.product']);
@@ -32,7 +48,7 @@ class ProductionLogController extends Controller
         $logs = $query->latest()->paginate(15)->withQueryString();
 
         $employees = Employee::aktif()->get();
-        // Load active orders (diproses/produksi) for selection, along with their items and products
+        // Memuat daftar pesanan aktif beserta detail item dan produknya untuk di-render di dropdown form 4-langkah
         $orders = Order::whereIn('status', ['diproses', 'produksi'])->with('items.product')->get();
 
         return Inertia::render('production-logs/index', [
@@ -43,6 +59,15 @@ class ProductionLogController extends Controller
         ]);
     }
 
+    /**
+     * Menyimpan log pengerjaan produksi baru.
+     * 
+     * Validasi: Memastikan target produksi tidak melebihi sisa yang harus dikerjakan pada order_item.
+     * Setelah validasi, tugas pembuatan diserahkan ke ProductionLogService::create()
+     * yang akan langsung memotong stok BOM.
+     * 
+     * @param Request $request
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -64,10 +89,18 @@ class ProductionLogController extends Controller
         }
     }
 
+    /**
+     * Memperbarui log produksi yang sudah ada.
+     * 
+     * Tujuan: Digunakan saat karyawan menyelesaikan tugasnya (update status menjadi selesai).
+     * Rule: Hanya log yang masih dalam_proses yang bisa diubah oleh endpoint ini. 
+     * Saat di-set selesai, ProductionLogService akan memicu penambahan upah borongan dan stok produk.
+     * 
+     * @param Request $request
+     * @param ProductionLog $productionLog
+     */
     public function update(Request $request, ProductionLog $productionLog)
     {
-        // Hanya log yang masih dalam_proses yang bisa diubah, kecuali hapus (soft delete / hard delete).
-        // Rollback and such is handled by service.
         $validated = $request->validate([
             'karyawan_id' => 'required|exists:employees,id',
             'tanggal_produksi' => 'required|date',
@@ -85,6 +118,15 @@ class ProductionLogController extends Controller
         }
     }
 
+    /**
+     * Menghapus log produksi (Pembatalan pengerjaan).
+     * 
+     * Tujuan: Rollback data sepenuhnya dari database menggunakan ProductionLogService::delete().
+     * Ini mengamankan pengembalian stok bahan yang telah dipotong dan pembatalan upah 
+     * yang mungkin sudah diberikan jika log sebelumnya telah selesai.
+     * 
+     * @param ProductionLog $productionLog
+     */
     public function destroy(ProductionLog $productionLog)
     {
         try {

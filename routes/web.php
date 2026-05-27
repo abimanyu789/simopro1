@@ -50,6 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('product-boms/{product}/{bom}', [\App\Http\Controllers\ProductBomController::class, 'destroy'])->name('product-boms.destroy');
 
     // Operasional & Transaksi
+    Route::get('orders/export-excel', [\App\Http\Controllers\OrderController::class, 'exportExcel'])->name('orders.export-excel');
+    Route::get('orders/{order}/export-invoice', [\App\Http\Controllers\OrderController::class, 'exportInvoicePdf'])->name('orders.export-invoice');
     Route::resource('orders', \App\Http\Controllers\OrderController::class)->except(['edit', 'update']);
     Route::post('orders/{order}/status', [\App\Http\Controllers\OrderController::class, 'updateStatus'])->name('orders.update-status');
     Route::post('orders/{order}/payment', [\App\Http\Controllers\OrderController::class, 'updatePaymentStatus'])->name('orders.update-payment');

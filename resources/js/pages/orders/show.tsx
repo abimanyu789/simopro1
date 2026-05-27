@@ -89,9 +89,9 @@ export default function OrderShow({ order, summary }: any) {
                             Hapus Pesanan
                         </button>
                     )}
-                    <button className="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 rounded-xl transition-colors inline-flex items-center gap-2">
+                    <a href={`/orders/${order.id}/export-invoice`} target="_blank" className="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 rounded-xl transition-colors inline-flex items-center gap-2">
                         <Printer className="w-4 h-4" /> Cetak Invoice
-                    </button>
+                    </a>
                 </div>
             </div>
 

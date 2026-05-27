@@ -47,9 +47,15 @@ export default function OrderIndex({ orders, filters }: any) {
                     <h1 className="text-2xl font-bold text-slate-900">Manajemen Pesanan</h1>
                     <p className="text-slate-500 mt-1">Kelola data pemesanan customer, pengiriman, dan pembayaran.</p>
                 </div>
-                <Link href="/orders/create" className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition-colors shadow-sm shadow-blue-500/20 font-medium text-sm">
-                    <Plus className="w-4 h-4" /> Buat Pesanan Baru
-                </Link>
+                <div className="flex items-center gap-2">
+                    <a href="/orders/export-excel" target="_blank" className="flex items-center gap-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-xl hover:bg-emerald-200 transition-colors shadow-sm font-medium text-sm border border-emerald-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                        Export Excel
+                    </a>
+                    <Link href="/orders/create" className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition-colors shadow-sm shadow-blue-500/20 font-medium text-sm">
+                        <Plus className="w-4 h-4" /> Buat Pesanan Baru
+                    </Link>
+                </div>
             </div>
 
             <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
