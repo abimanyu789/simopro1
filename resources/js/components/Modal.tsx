@@ -1,6 +1,7 @@
-import { Fragment, PropsWithChildren } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { X } from 'lucide-react';
+import type { PropsWithChildren } from 'react';
+import { Fragment } from 'react';
 
 interface Props {
     show: boolean;

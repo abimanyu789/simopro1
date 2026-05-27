@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { Head } from '@inertiajs/react';
-import AppLayout from '@/layouts/AppLayout';
-import { FileText, Download, Calendar, Filter } from 'lucide-react';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
+import { FileText, Download, Calendar, Filter } from 'lucide-react';
+import { useState } from 'react';
+import AppLayout from '@/layouts/AppLayout';
 
 /**
  * Halaman Cetak Laporan (Reports)

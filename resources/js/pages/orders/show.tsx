@@ -1,11 +1,11 @@
-import { useState } from 'react';
 import { Head, Link, useForm, router } from '@inertiajs/react';
-import AppLayout from '@/layouts/AppLayout';
-import Modal from '@/components/Modal';
-import { ArrowLeft, Edit2, Package, Clock, CheckCircle2, Truck, CreditCard, Banknote, Printer } from 'lucide-react';
-import { toast } from 'react-hot-toast';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
+import { ArrowLeft, Edit2, Package, Clock, CheckCircle2, Truck, CreditCard, Banknote, Printer, ShoppingCart } from 'lucide-react';
+import { useState } from 'react';
+import { toast } from 'react-hot-toast';
+import Modal from '@/components/Modal';
+import AppLayout from '@/layouts/AppLayout';
 
 export default function OrderShow({ order, summary }: any) {
     // Status Modal
@@ -61,6 +61,7 @@ export default function OrderShow({ order, summary }: any) {
             'selesai': 'bg-emerald-100 text-emerald-700 border-emerald-200',
             'dibatalkan': 'bg-red-100 text-red-700 border-red-200',
         };
+
         return <span className={`px-3 py-1 rounded-full text-xs font-bold tracking-wide border ${styles[status]}`}>{status.toUpperCase()}</span>;
     };
 
@@ -70,6 +71,7 @@ export default function OrderShow({ order, summary }: any) {
             'dibayar_sebagian': 'bg-amber-100 text-amber-700 border-amber-200',
             'lunas': 'bg-emerald-100 text-emerald-700 border-emerald-200',
         };
+
         return <span className={`px-3 py-1 rounded-full text-xs font-bold tracking-wide border ${styles[status]}`}>{status.replace('_', ' ').toUpperCase()}</span>;
     };
 

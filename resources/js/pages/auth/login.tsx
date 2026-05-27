@@ -1,6 +1,7 @@
 import { Head, useForm } from '@inertiajs/react';
 import { Eye, EyeOff, Lock, User } from 'lucide-react';
-import { FormEventHandler, useState } from 'react';
+import type { FormEventHandler} from 'react';
+import { useState } from 'react';
 
 export default function Login() {
     const { data, setData, post, processing, errors } = useForm({

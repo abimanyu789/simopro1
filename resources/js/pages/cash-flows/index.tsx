@@ -1,12 +1,12 @@
-import { useState, useMemo } from 'react';
 import { Head, router, useForm } from '@inertiajs/react';
-import AppLayout from '@/layouts/AppLayout';
-import Modal from '@/components/Modal';
-import { Plus, Search, Trash2, Wallet, ArrowDownToLine, ArrowUpToLine, History } from 'lucide-react';
-import { toast } from 'react-hot-toast';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
+import { Plus, Search, Trash2, Wallet, ArrowDownToLine, ArrowUpToLine, History } from 'lucide-react';
+import { useState, useMemo } from 'react';
 import Chart from 'react-apexcharts';
+import { toast } from 'react-hot-toast';
+import Modal from '@/components/Modal';
+import AppLayout from '@/layouts/AppLayout';
 
 export default function CashFlowIndex({ cashFlows, summary, filters }: any) {
     const [search, setSearch] = useState(filters.search || '');
@@ -54,6 +54,7 @@ export default function CashFlowIndex({ cashFlows, summary, filters }: any) {
 
     const handleDelete = (e: React.FormEvent) => {
         e.preventDefault();
+
         if (selectedLog) {
             router.delete(route('cash-flows.destroy', selectedLog.id), {
                 preserveScroll: true,
@@ -81,9 +82,11 @@ export default function CashFlowIndex({ cashFlows, summary, filters }: any) {
         
         [...cashFlows.data].reverse().forEach((cf: any) => {
             const date = cf.tanggal_transaksi;
+
             if (!dateMap.has(date)) {
                 dateMap.set(date, { in: 0, out: 0 });
             }
+
             if (cf.jenis === 'pemasukan') {
                 dateMap.get(date)!.in += cf.nominal;
             } else {
@@ -177,7 +180,9 @@ export default function CashFlowIndex({ cashFlows, summary, filters }: any) {
                             <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                             <input type="text" placeholder="Cari deskripsi..." value={search} onChange={e => setSearch(e.target.value)} className="w-full pl-9 pr-4 py-2 rounded-lg border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
                         </div>
-                        <select value={jenisFilter} onChange={e => { setJenisFilter(e.target.value); router.get('/cash-flows', { search, jenis: e.target.value }, { preserveState: true }); }} className="rounded-lg border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 py-2 pl-3 pr-8 min-w-[160px]">
+                        <select value={jenisFilter} onChange={e => {
+ setJenisFilter(e.target.value); router.get('/cash-flows', { search, jenis: e.target.value }, { preserveState: true }); 
+}} className="rounded-lg border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 py-2 pl-3 pr-8 min-w-[160px]">
                             <option value="">Semua Transaksi</option>
                             <option value="pemasukan">Hanya Pemasukan</option>
                             <option value="pengeluaran">Hanya Pengeluaran</option>

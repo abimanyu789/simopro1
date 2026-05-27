@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
-import AppLayout from '@/layouts/AppLayout';
-import Modal from '@/components/Modal';
 import { ArrowLeft, Plus, Trash2, Edit2, Package, Box, Layers } from 'lucide-react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import Modal from '@/components/Modal';
+import AppLayout from '@/layouts/AppLayout';
 
 export default function ProductBomShow({ product, boms, rawMaterials }: any) {
     const [isModalOpen, setIsModalOpen] = useState(false);

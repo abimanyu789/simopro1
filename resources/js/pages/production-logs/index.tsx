@@ -1,11 +1,11 @@
-import { useState, useMemo } from 'react';
 import { Head, router, useForm } from '@inertiajs/react';
-import AppLayout from '@/layouts/AppLayout';
-import Modal from '@/components/Modal';
-import { Plus, Search, CheckCircle2, Factory, Trash2, Edit } from 'lucide-react';
-import { toast } from 'react-hot-toast';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
+import { Plus, Search, CheckCircle2, Factory, Trash2, Edit } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { toast } from 'react-hot-toast';
+import Modal from '@/components/Modal';
+import AppLayout from '@/layouts/AppLayout';
 
 export default function ProductionLogIndex({ logs, employees, orders, filters }: any) {
     const [search, setSearch] = useState(filters.search || '');
@@ -29,17 +29,26 @@ export default function ProductionLogIndex({ logs, employees, orders, filters }:
 
     // Derived states
     const selectedOrder = useMemo(() => {
-        if (!data.order_id) return null;
+        if (!data.order_id) {
+return null;
+}
+
         return orders.find((o: any) => o.id.toString() === data.order_id);
     }, [data.order_id, orders]);
 
     const orderItems = useMemo(() => {
-        if (!selectedOrder) return [];
+        if (!selectedOrder) {
+return [];
+}
+
         return selectedOrder.items;
     }, [selectedOrder]);
 
     const selectedItem = useMemo(() => {
-        if (!data.order_item_id) return null;
+        if (!data.order_item_id) {
+return null;
+}
+
         return orderItems.find((i: any) => i.id.toString() === data.order_item_id);
     }, [data.order_item_id, orderItems]);
 
@@ -71,6 +80,7 @@ export default function ProductionLogIndex({ logs, employees, orders, filters }:
 
     const submitDelete = (e: React.FormEvent) => {
         e.preventDefault();
+
         if (selectedLog) {
             router.delete(route('production-logs.destroy', selectedLog.id), {
                 onSuccess: () => {
@@ -219,7 +229,9 @@ export default function ProductionLogIndex({ logs, employees, orders, filters }:
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">Pesanan <span className="text-red-500">*</span></label>
-                            <select value={data.order_id} onChange={e => { setData('order_id', e.target.value); setData('order_item_id', ''); }} required className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500">
+                            <select value={data.order_id} onChange={e => {
+ setData('order_id', e.target.value); setData('order_item_id', ''); 
+}} required className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500">
                                 <option value="" disabled>Pilih Pesanan (Diproses/Produksi)...</option>
                                 {orders.map((o: any) => (
                                     <option key={o.id} value={o.id}>PO: {o.nomor_pesanan} ({o.customer?.nama_customer})</option>
@@ -233,6 +245,7 @@ export default function ProductionLogIndex({ logs, employees, orders, filters }:
                                 <option value="" disabled>Pilih Item...</option>
                                 {orderItems.map((item: any) => {
                                     const sisa = item.kuantitas - item.jumlah_diproduksi;
+
                                     return (
                                         <option key={item.id} value={item.id} disabled={sisa <= 0}>
                                             {item.product?.nama_produk} ({item.ukuran} / {item.warna}) - Sisa: {sisa}

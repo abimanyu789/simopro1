@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { Head, router, useForm } from '@inertiajs/react';
-import AppLayout from '@/layouts/AppLayout';
-import Modal from '@/components/Modal';
 import { Plus, Search, Settings2, ArrowRightLeft, Package } from 'lucide-react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import Modal from '@/components/Modal';
+import AppLayout from '@/layouts/AppLayout';
 
 export default function ProductStockIndex({ stocks, products, filters }: any) {
     const [search, setSearch] = useState(filters.search || '');
@@ -68,6 +68,7 @@ export default function ProductStockIndex({ stocks, products, filters }: any) {
 
     const submitEdit = (e: React.FormEvent) => {
         e.preventDefault();
+
         if (selectedId) {
             putEdit(route('product-stocks.update', selectedId), {
                 onSuccess: () => {
@@ -86,6 +87,7 @@ export default function ProductStockIndex({ stocks, products, filters }: any) {
 
     const submitAdjust = (e: React.FormEvent) => {
         e.preventDefault();
+
         if (selectedStock) {
             postAdjust(route('product-stocks.adjust', selectedStock.id), {
                 onSuccess: () => {

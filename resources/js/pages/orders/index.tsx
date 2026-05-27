@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
-import AppLayout from '@/layouts/AppLayout';
-import { Plus, Search, Eye, ShoppingCart } from 'lucide-react';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
+import { Plus, Search, Eye, ShoppingCart } from 'lucide-react';
+import { useState } from 'react';
+import AppLayout from '@/layouts/AppLayout';
 
 export default function OrderIndex({ orders, filters }: any) {
     const [search, setSearch] = useState(filters.search || '');
@@ -22,6 +22,7 @@ export default function OrderIndex({ orders, filters }: any) {
             'selesai': 'bg-emerald-100 text-emerald-700',
             'dibatalkan': 'bg-red-100 text-red-700',
         };
+
         return colors[status] || colors['pending'];
     };
 
@@ -31,6 +32,7 @@ export default function OrderIndex({ orders, filters }: any) {
             'dibayar_sebagian': 'bg-amber-50 text-amber-700 border-amber-200',
             'lunas': 'bg-emerald-50 text-emerald-700 border-emerald-200',
         };
+
         return colors[status] || colors['belum_dibayar'];
     };
 
@@ -160,7 +162,8 @@ export default function OrderIndex({ orders, filters }: any) {
                                         </Link>
                                     </td>
                                 </tr>
-                            )}) : (
+                            )
+}) : (
                                 <tr>
                                     <td colSpan={5} className="px-6 py-12 text-center text-slate-500">
                                         <ShoppingCart className="w-12 h-12 text-slate-300 mx-auto mb-3" />

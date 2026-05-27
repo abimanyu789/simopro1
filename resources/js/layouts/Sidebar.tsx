@@ -137,7 +137,7 @@ export default function Sidebar() {
 
                         {group.items && (
                             <div className="space-y-1">
-                                {group.items.filter(i => !i.hidden).map((item, itemIdx) => (
+                                {group.items.filter(i => !(i as any).hidden).map((item, itemIdx) => (
                                     <Link
                                         key={itemIdx}
                                         href={item.href}
@@ -151,9 +151,9 @@ export default function Sidebar() {
                                             <item.icon className="w-4 h-4" />
                                             <span className="text-sm">{item.title}</span>
                                         </div>
-                                        {item.badge && item.badge > 0 ? (
+                                        {(item as any).badge && (item as any).badge > 0 ? (
                                             <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm shadow-red-500/30">
-                                                {item.badge}
+                                                {(item as any).badge}
                                             </span>
                                         ) : null}
                                     </Link>

@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { Head, router, useForm } from '@inertiajs/react';
-import AppLayout from '@/layouts/AppLayout';
-import Modal from '@/components/Modal';
 import { Search, Settings2, ArrowRightLeft, Box } from 'lucide-react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import Modal from '@/components/Modal';
+import AppLayout from '@/layouts/AppLayout';
 
 export default function RawMaterialStockIndex({ stocks, filters }: any) {
     const [search, setSearch] = useState(filters.search || '');
@@ -42,6 +42,7 @@ export default function RawMaterialStockIndex({ stocks, filters }: any) {
 
     const submitEdit = (e: React.FormEvent) => {
         e.preventDefault();
+
         if (selectedId) {
             putEdit(route('raw-material-stocks.update', selectedId), {
                 onSuccess: () => {
@@ -60,6 +61,7 @@ export default function RawMaterialStockIndex({ stocks, filters }: any) {
 
     const submitAdjust = (e: React.FormEvent) => {
         e.preventDefault();
+
         if (selectedStock) {
             postAdjust(route('raw-material-stocks.adjust', selectedStock.id), {
                 onSuccess: () => {

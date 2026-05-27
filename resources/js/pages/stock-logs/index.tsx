@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { Head, router } from '@inertiajs/react';
-import AppLayout from '@/layouts/AppLayout';
-import { Search, History, ArrowDownToLine, ArrowUpToLine, RefreshCw } from 'lucide-react';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
+import { Search, History, ArrowDownToLine, ArrowUpToLine, RefreshCw } from 'lucide-react';
+import { useState } from 'react';
+import AppLayout from '@/layouts/AppLayout';
 
 export default function StockLogIndex({ logs, filters }: any) {
     const [search, setSearch] = useState(filters.search || '');
@@ -16,20 +16,38 @@ export default function StockLogIndex({ logs, filters }: any) {
     };
 
     const getIcon = (jenis: string) => {
-        if (jenis === 'stok_masuk') return <ArrowDownToLine className="w-4 h-4 text-emerald-600" />;
-        if (jenis === 'stok_keluar') return <ArrowUpToLine className="w-4 h-4 text-red-600" />;
+        if (jenis === 'stok_masuk') {
+return <ArrowDownToLine className="w-4 h-4 text-emerald-600" />;
+}
+
+        if (jenis === 'stok_keluar') {
+return <ArrowUpToLine className="w-4 h-4 text-red-600" />;
+}
+
         return <RefreshCw className="w-4 h-4 text-blue-600" />;
     };
 
     const getBadgeClass = (jenis: string) => {
-        if (jenis === 'stok_masuk') return 'bg-emerald-50 text-emerald-700 border border-emerald-100';
-        if (jenis === 'stok_keluar') return 'bg-red-50 text-red-700 border border-red-100';
+        if (jenis === 'stok_masuk') {
+return 'bg-emerald-50 text-emerald-700 border border-emerald-100';
+}
+
+        if (jenis === 'stok_keluar') {
+return 'bg-red-50 text-red-700 border border-red-100';
+}
+
         return 'bg-blue-50 text-blue-700 border border-blue-100';
     };
 
     const getJenisLabel = (jenis: string) => {
-        if (jenis === 'stok_masuk') return 'STOK MASUK';
-        if (jenis === 'stok_keluar') return 'STOK KELUAR';
+        if (jenis === 'stok_masuk') {
+return 'STOK MASUK';
+}
+
+        if (jenis === 'stok_keluar') {
+return 'STOK KELUAR';
+}
+
         return 'KOREKSI';
     };
 

@@ -31,8 +31,10 @@ declare module '@inertiajs/core' {
  * - route(name, params)      → generate URL dengan params (number | string | object)
  * - route(name, params, abs) → absolute URL jika abs = true
  */
-declare function route(
-    name: string,
-    params?: number | string | Record<string, unknown> | (number | string)[],
-    absolute?: boolean,
-): string;
+declare global {
+    function route(
+        name: string,
+        params?: number | string | Record<string, unknown> | (number | string)[],
+        absolute?: boolean,
+    ): string;
+}

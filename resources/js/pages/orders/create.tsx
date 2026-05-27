@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
-import AppLayout from '@/layouts/AppLayout';
 import { ArrowLeft, Plus, Trash2, Save, ShoppingBag } from 'lucide-react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import AppLayout from '@/layouts/AppLayout';
 
 export default function OrderCreate({ customers, products }: any) {
     const { data, setData, post, processing, errors } = useForm({
@@ -24,6 +24,7 @@ export default function OrderCreate({ customers, products }: any) {
     const addItem = () => {
         if (!selectedProduct || !selectedSize || !selectedQty || parseInt(selectedQty) < 1) {
             toast.error('Harap lengkapi detail item dengan benar.');
+
             return;
         }
 
@@ -56,6 +57,7 @@ export default function OrderCreate({ customers, products }: any) {
         
         if (data.items.length === 0) {
             toast.error('Pesanan harus memiliki minimal 1 item.');
+
             return;
         }
 

@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { Head, useForm } from '@inertiajs/react';
-import AppLayout from '@/layouts/AppLayout';
 import { Save, Upload, User, Shield, Building, Key } from 'lucide-react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import AppLayout from '@/layouts/AppLayout';
 
 export default function SettingsIndex({ setting, user }: any) {
     const [activeTab, setActiveTab] = useState('profil');

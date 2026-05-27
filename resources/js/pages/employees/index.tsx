@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { Head, router, useForm } from '@inertiajs/react';
-import AppLayout from '@/layouts/AppLayout';
-import Modal from '@/components/Modal';
 import { Plus, Search, Edit2, Trash2, Filter, MoreHorizontal } from 'lucide-react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import Modal from '@/components/Modal';
+import AppLayout from '@/layouts/AppLayout';
 
 interface Employee {
     id: number;

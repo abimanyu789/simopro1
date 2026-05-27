@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { Head, router } from '@inertiajs/react';
-import AppLayout from '@/layouts/AppLayout';
-import Chart from 'react-apexcharts';
-import { ShoppingBag, TrendingUp, TrendingDown, Users, Package, Award, Calendar } from 'lucide-react';
 import { format } from 'date-fns';
+import { ShoppingBag, TrendingUp, TrendingDown, Users, Package, Award, Calendar } from 'lucide-react';
+import { useState } from 'react';
+import Chart from 'react-apexcharts';
+import AppLayout from '@/layouts/AppLayout';
 
 export default function DashboardIndex({ kpi, chartData, topProducts, filters }: any) {
     

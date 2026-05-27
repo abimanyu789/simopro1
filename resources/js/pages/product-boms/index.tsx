@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
-import AppLayout from '@/layouts/AppLayout';
 import { Search, Layers, ChevronRight } from 'lucide-react';
+import { useState } from 'react';
+import AppLayout from '@/layouts/AppLayout';
 
 export default function ProductBomIndex({ products, filters }: any) {
     const [search, setSearch] = useState(filters.search || '');
