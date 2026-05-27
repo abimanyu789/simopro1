@@ -26,7 +26,7 @@ export default function CustomerIndex({ customers, filters }: any) {
     const { data, setData, post, put, delete: destroy, processing, errors, reset, clearErrors } = useForm({
         nama_customer: '',
         nama_penanggungjawab: '',
-        kategori: 'retail',
+        kategori: 'eceran',
         nomor_hp: '',
         email: '',
         alamat: '',
@@ -131,10 +131,10 @@ export default function CustomerIndex({ customers, filters }: any) {
                             className="rounded-lg border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 py-2 pl-3 pr-8"
                         >
                             <option value="">Semua Kategori</option>
-                            <option value="retail">Retail</option>
+                            <option value="eceran">Eceran</option>
                             <option value="grosir">Grosir</option>
-                            <option value="distributor">Distributor</option>
-                            <option value="lainnya">Lainnya</option>
+                            <option value="reseller">Reseller</option>
+                            <option value="b2b">B2B / Lainnya</option>
                         </select>
                         <button type="submit" className="hidden">Cari</button>
                     </form>
@@ -210,10 +210,10 @@ export default function CustomerIndex({ customers, filters }: any) {
                         <div>
                             <label className="block text-sm font-medium text-slate-700 mb-1">Kategori <span className="text-red-500">*</span></label>
                             <select value={data.kategori} onChange={e => setData('kategori', e.target.value)} required className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500">
-                                <option value="retail">Retail</option>
+                                <option value="eceran">Eceran</option>
                                 <option value="grosir">Grosir</option>
-                                <option value="distributor">Distributor</option>
-                                <option value="lainnya">Lainnya</option>
+                                <option value="reseller">Reseller</option>
+                                <option value="b2b">B2B / Lainnya</option>
                             </select>
                         </div>
                         <div className="md:col-span-2">

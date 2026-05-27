@@ -41,8 +41,8 @@ class HandleInertiaRequests extends Middleware
         ];
 
         if ($request->user()) {
-            $stockAlerts['product'] = \App\Models\ProductStock::whereColumn('stok_aktual', '<=', 'stok_minimum')->count();
-            $stockAlerts['rawMaterial'] = \App\Models\RawMaterialStock::whereColumn('stok_aktual', '<=', 'stok_minimum')->count();
+            $stockAlerts['product'] = \App\Models\ProductStock::whereColumn('stok_saat_ini', '<=', 'stok_minimum')->count();
+            $stockAlerts['rawMaterial'] = \App\Models\RawMaterialStock::whereColumn('stok_saat_ini', '<=', 'stok_minimum')->count();
         }
 
         return [

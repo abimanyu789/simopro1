@@ -38,7 +38,7 @@ class CustomerController extends Controller
         $validated = $request->validate([
             'nama_customer' => 'required|string|max:255',
             'nama_penanggungjawab' => 'nullable|string|max:255',
-            'kategori' => ['required', Rule::in(['retail', 'grosir', 'distributor', 'lainnya'])],
+            'kategori' => ['required', Rule::in(['eceran', 'grosir', 'reseller', 'b2b'])],
             'nomor_hp' => 'required|string|max:20',
             'email' => 'nullable|email|max:100',
             'alamat' => 'required|string',
@@ -59,7 +59,7 @@ class CustomerController extends Controller
         $validated = $request->validate([
             'nama_customer' => 'required|string|max:255',
             'nama_penanggungjawab' => 'nullable|string|max:255',
-            'kategori' => ['required', Rule::in(['retail', 'grosir', 'distributor', 'lainnya'])],
+            'kategori' => ['required', Rule::in(['eceran', 'grosir', 'reseller', 'b2b'])],
             'nomor_hp' => 'required|string|max:20',
             'email' => 'nullable|email|max:100',
             'alamat' => 'required|string',
