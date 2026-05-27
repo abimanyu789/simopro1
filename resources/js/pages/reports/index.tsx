@@ -86,32 +86,40 @@ export default function ReportsIndex() {
                     </a>
                 </div>
 
-                {/* (Placeholder) Laporan Arus Kas */}
-                <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col hover:border-emerald-300 transition-colors opacity-75">
+                {/* Laporan Arus Kas */}
+                <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col hover:border-emerald-300 transition-colors">
                     <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4">
                         <FileText className="w-6 h-6" />
                     </div>
                     <h2 className="text-lg font-bold text-slate-900 mb-2">Laporan Arus Kas</h2>
                     <p className="text-sm text-slate-500 flex-1 mb-6">
-                        Buku kas detail berisi semua transaksi uang masuk dan uang keluar harian pada rentang waktu. (Tahap Pengembangan Selanjutnya)
+                        Buku kas detail berisi semua transaksi uang masuk dan uang keluar harian beserta referensi pada rentang waktu terpilih (Format Excel).
                     </p>
-                    <button disabled className="w-full py-2.5 bg-slate-100 text-slate-400 font-bold rounded-xl cursor-not-allowed">
-                        Akan Hadir
-                    </button>
+                    <a 
+                        href={`/reports/cash-flow-excel?start_date=${startDate}&end_date=${endDate}`}
+                        target="_blank"
+                        className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-emerald-600 text-white hover:bg-emerald-700 font-bold rounded-xl transition-colors"
+                    >
+                        <Download className="w-4 h-4" /> Unduh Excel
+                    </a>
                 </div>
 
-                {/* (Placeholder) Laporan Produksi & Upah */}
-                <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col hover:border-purple-300 transition-colors opacity-75">
+                {/* Laporan Produksi & Upah */}
+                <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col hover:border-purple-300 transition-colors">
                     <div className="w-12 h-12 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center mb-4">
                         <FileText className="w-6 h-6" />
                     </div>
-                    <h2 className="text-lg font-bold text-slate-900 mb-2">Laporan Produksi & Upah</h2>
+                    <h2 className="text-lg font-bold text-slate-900 mb-2">Laporan Produksi</h2>
                     <p className="text-sm text-slate-500 flex-1 mb-6">
-                        Rekapitulasi output produksi harian pabrik dan rincian upah borongan untuk masing-masing karyawan. (Tahap Pengembangan Selanjutnya)
+                        Rekapitulasi output produksi harian pabrik, detail karyawan, dan nomor pesanan yang dikerjakan pada rentang waktu terpilih (Format Excel).
                     </p>
-                    <button disabled className="w-full py-2.5 bg-slate-100 text-slate-400 font-bold rounded-xl cursor-not-allowed">
-                        Akan Hadir
-                    </button>
+                    <a 
+                        href={`/reports/production-excel?start_date=${startDate}&end_date=${endDate}`}
+                        target="_blank"
+                        className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-purple-600 text-white hover:bg-purple-700 font-bold rounded-xl transition-colors"
+                    >
+                        <Download className="w-4 h-4" /> Unduh Excel
+                    </a>
                 </div>
 
             </div>

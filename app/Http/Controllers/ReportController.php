@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\CashFlowExport;
+use App\Exports\ProductionLogExport;
 
 /**
  * Controller Manajemen Laporan (Reports).
@@ -49,5 +52,20 @@ class ReportController extends Controller
         ]);
 
         return $pdf->download('Laporan_Penjualan_Provillo_' . $startDate . '_sd_' . $endDate . '.pdf');
+    }
+    public function exportCashFlowExcel(Request $request)
+    {
+        $startDate = $request->query('start_date', Carbon::now()->startOfMonth()->format('Y-m-d'));
+        $endDate = $request->query('end_date', Carbon::now()->endOfMonth()->format('Y-m-d'));
+
+        return Excel::download(new CashFlowExport($startDate, $endDate), 'Laporan_Arus_Kas_'.$startDate.'_sd_'.$endDate.'.xlsx');
+    }
+
+    public function exportProductionExcel(Request $request)
+    {
+        $startDate = $request->query('start_date', Carbon::now()->startOfMonth()->format('Y-m-d'));
+        $endDate = $request->query('end_date', Carbon::now()->endOfMonth()->format('Y-m-d'));
+
+        return Excel::download(new ProductionLogExport($startDate, $endDate), 'Laporan_Produksi_'.$startDate.'_sd_'.$endDate.'.xlsx');
     }
 }

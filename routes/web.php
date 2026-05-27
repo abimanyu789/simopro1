@@ -66,6 +66,8 @@ Route::middleware('auth')->group(function () {
     // Laporan (Reports)
     Route::get('reports', [\App\Http\Controllers\ReportController::class, 'index'])->name('reports.index');
     Route::get('reports/sales-pdf', [\App\Http\Controllers\ReportController::class, 'exportSalesPdf'])->name('reports.sales-pdf');
+    Route::get('reports/cash-flow-excel', [\App\Http\Controllers\ReportController::class, 'exportCashFlowExcel'])->name('reports.cash-flow-excel');
+    Route::get('reports/production-excel', [\App\Http\Controllers\ReportController::class, 'exportProductionExcel'])->name('reports.production-excel');
 
     // Pengaturan
     Route::get('settings', [\App\Http\Controllers\SettingsController::class, 'index'])->name('settings.index');
